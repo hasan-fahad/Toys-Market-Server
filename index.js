@@ -52,7 +52,7 @@ async function run() {
         if (req.query?.email){
             query ={email: req.query.email}
         }
-        const result = await orderCollection.find().toArray();
+        const result = await toyOrderCollection.find().toArray();
         res.send(result);
     })
     app.post('/order', async (req, res) => {
@@ -61,6 +61,13 @@ async function run() {
         const result = await toyOrderCollection.insertOne(order);
         res.send(result);
     });
+
+    app.delete('/order/:id', async(req,res) => {
+        const id = req.params.id;
+        const query = {_id : new ObjectId (id)}
+        const result = await toyOrderCollection.deleteOne(query);
+        res.send(result);
+    })
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
