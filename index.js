@@ -29,6 +29,7 @@ async function run() {
     await client.connect();
 
     const allProductsCollection =client.db('toyMarket').collection('allproduct');
+    const toyOrderCollection = client.db('toyMarket').collection('toyorder');
 
     app.get('/allproducts', async(req, res) => {
         const cursor =allProductsCollection.find();
@@ -45,6 +46,10 @@ async function run() {
         const result = await allProductsCollection.findOne(query,options);
         res.send(result);
     })
+    app.post('/order', async (req, res) => {
+        const order = req.body;
+        console.log(order);
+    });
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
