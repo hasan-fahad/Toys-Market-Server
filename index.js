@@ -49,6 +49,8 @@ async function run() {
     app.post('/order', async (req, res) => {
         const order = req.body;
         console.log(order);
+        const result = await toyOrderCollection.insertOne(order);
+        res.send(result);
     });
 
     // Send a ping to confirm a successful connection
